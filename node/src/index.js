@@ -1,6 +1,6 @@
 const express = require("express")
 const app = express()
-
+const mysql = require("mysql")
 
 
 app.get("/", (req, res)=>{
@@ -9,5 +9,20 @@ app.get("/", (req, res)=>{
 
 
 app.listen(3000,()=>{
+    
+    const connection = mysql.createConnection({
+    host: "db",
+    user: "root",
+    password: "root",
+    database: "nodedb"
+})
+
+const sql = "INSERT INTO people(name) VALUES('Apolo');"
+
+connection.connect()
+
+connection.query(sql)
+
+connection.end()
     console.log("Listening in port 3000")
 })
