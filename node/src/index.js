@@ -2,27 +2,45 @@ const express = require("express")
 const app = express()
 const mysql = require("mysql")
 
+app.use(express.json())
 
-app.get("/", (req, res)=>{
-    res.send("<h1>Full Cycle Rocks!</h1>")
-})
-
-
-app.listen(3000,()=>{
-    
-    const connection = mysql.createConnection({
+const connection = mysql.createConnection({
     host: "db",
     user: "root",
     password: "root",
     database: "nodedb"
 })
 
-const sql = "INSERT INTO people(name) VALUES('Apolo');"
+app.get("/", (req, res)=>{
 
-connection.connect()
+    
+    
+        const sql = "INSERT INTO people(nome) VALUES('Apolo');"
 
-connection.query(sql)
+        connection.connect()
+    
+        connection.query(sql)
 
-connection.end()
+        const queryList = "SELECT * FROM people"
+        let peoples;
+        connection.query(queryList, (erro, results, fields)=>{
+            
+            peoples = results
+            console.log(peoples)
+            res.json({
+                titulo: "<h1>Full Cycle Rocks!</h1>",
+                peoples
+            })
+        })
+        
+    
+            
+    
+})
+
+
+app.listen(3000,()=>{
+    
     console.log("Listening in port 3000")
+
 })

@@ -6,8 +6,13 @@ services:
     image: alissondocker31/node
     container_name: express
     build:
-      context: ./
+      context: ./node
+    volumes:
+      - ./node/src:/home/node/projeto/src 
+    command: npm run dev  
     restart: always
+    depends_on:
+      - db
     networks:
       - nodenet
 
@@ -21,14 +26,15 @@ services:
     ports:
       - "8080:80"
    
-   db:
+  db:
     image: mysql:5.7
-    command: --innodb-use-native-aio=0
+    command: --innodb-use-native-aio=0 --init-file /docker-entrypoint-initdb.d/init-script.sql
     container_name: db
     restart: always
     tty: true
     volumes:
       - ./mysql:/var/lib/mysql
+      - ./init-script.sql:/docker-entrypoint-initdb.d/init-script.sql
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
