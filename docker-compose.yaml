@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+
+  node:
+    image: alissondocker31/node
+    container_name: express
+    build:
+      context: ./
+    restart: always
+    networks:
+      - nodenet
+
+  nginx:
+    image: alissondocker31/nginx
+    container_name: nginx
+    build:
+      context: ./nginx  
+    networks:
+      - nodenet
+    ports:
+      - "8080:80"
+
+
+networks:
+  nodenet:
+    driver: bridge            
