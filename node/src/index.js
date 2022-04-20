@@ -4,7 +4,7 @@ const app = express()
 
 
 app.get("/", (req, res)=>{
-    res.send("<h1>Olá Mundo Novo...Estou usando docker compose</h1>")
+    res.send("<h1>Full Cycle Rocks!</h1>")
 })
 
 
