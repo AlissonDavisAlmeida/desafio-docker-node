@@ -15,7 +15,7 @@ app.get("/", (req, res)=>{
 
     
     
-        const sql = "INSERT INTO people(nome) VALUES('Apolo');"
+        const sql = "INSERT INTO people(name) VALUES('Apolo');"
 
         connection.connect()
     
