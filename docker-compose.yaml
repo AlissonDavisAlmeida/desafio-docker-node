@@ -24,6 +24,8 @@ services:
       context: ./nginx  
     networks:
       - nodenet
+    depends_on:
+      - express  
     ports:
       - "8080:80"
    
